@@ -1,16 +1,19 @@
 # include "funcoes.h"
 
 int main() {
-    
-    Frame memoriaFisica[NUM_FRAMES];
-    Frame memoriaVirtual[NUM_FRAMES];
-    TabelaPaginas tabela[NUM_FRAMES];
+    Frame memPrincipal[100];
+    Pagina memVirtual[100];
 
-    
-    inicializarMemoriaFisica(memoriaFisica);
-    inicializarMemoriaVirtual(memoriaVirtual);
-    inicializarTabela(tabela);
+    if(inicializarMemFisica(memPrincipal)) {
+        printf("\nMemória física inicializada com sucesso!");
+    } else {
+        printf("\nHouve um erro ao inicializar a memória física!");
+    }
 
+    if(inicializarMemVirtual(memVirtual)) {
+        printf("\nMemória virtual inicializada com sucesso!");
+    } else {
+        printf("\nHouve um erro ao inicializar a memória virtual!");
+    }
 
-    return 0;
 }

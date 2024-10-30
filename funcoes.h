@@ -1,17 +1,13 @@
-#ifndef funcoes
+#ifndef FUNCOES_H
+#define FUNCOES_H
 
-#define funcoes
+#include "Structs.h"
+#include <stdio.h>
+#include <stdbool.h>
 
-# include "Structs.c"
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdbool.h>
+// Declaração da função para inicializar a memória física
+bool inicializarMemFisica(Frame memFisica[]);
 
-# define TAM_FRAME 4096
-# define NUM_FRAMES 100
-
-void inicializarMemoriaFisica(Frame memoriaFisica[]);
-void inicializarMemoriaVirtual(Frame memoriaVirtual[]);
-void inicializarTabela(TabelaPaginas tabela[]);
+bool inicializarMemVirtual(Pagina memVirtual[]);
 
 #endif
