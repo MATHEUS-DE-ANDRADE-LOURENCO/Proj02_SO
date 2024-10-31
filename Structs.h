@@ -2,6 +2,7 @@
 #define STRUCTS_H
 
 #define TAM_VET 100
+#define PAGS_PROC 3
 #include <stdbool.h>
 
 typedef struct {
@@ -15,7 +16,7 @@ typedef struct {
 typedef struct {
     int pid;
     int tabelaPaginas[TAM_VET];
-    Pagina paginas[TAM_VET];
+    Pagina paginas[PAGS_PROC];
 } Processo;
 
 typedef struct {
