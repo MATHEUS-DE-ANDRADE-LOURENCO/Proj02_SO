@@ -19,10 +19,11 @@ int main() {
     Processo p1;
     int idPaginasP1[PAGS_PROC] = {2, 7, 4};
 
-    Pagina p;
-    inicializarPagina(&p, 8, 1);
+    inicializarProcesso(&p1, 12);
 
-    imprimirPagina(p);
+    alocarPaginasProc(idPaginasP1 , &p1);
+
+    imprimirProcesso(p1);
 
     return 0;
 }

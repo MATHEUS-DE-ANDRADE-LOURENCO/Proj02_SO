@@ -49,15 +49,10 @@ void imprimirPagina(Pagina pag) {
     printf("\n\n-----------------------------------------------");
     printf("\nPAGINA %d", pag.id);
     printf("\n-----------------------------------------------");
-
     printf("\nOCUPADO?: %d", pag.ocupado);
 
-    if(pag.processo_id = 0) {
-        printf("\nPROCESSO_ID: NONE");
-    } else {
-        printf("\nPROCESSO_ID: %d", pag.processo_id);
-    }
-
+    if(pag.processo_id != 0) {printf("\nPROCESSO_ID: %d", pag.processo_id);}
+    else {printf("\nPROCESSO_ID: NONE");}
     printf("\n-----------------------------------------------");
 }
 
