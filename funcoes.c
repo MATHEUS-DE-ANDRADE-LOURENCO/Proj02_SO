@@ -144,7 +144,7 @@ bool temPageFault(Pagina memVirtual[TAM_VET], Frame memFisica[TAM_VET]) {
         
         if(procura == false) {
             if (flag == true) flag = false;
-            printf("Página de id %d não se encontra na memória física", idVirtual);
+            printf("\nPágina de id %d não se encontra na memória física", idVirtual);
         }
     }
 

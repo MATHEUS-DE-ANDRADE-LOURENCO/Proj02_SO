@@ -52,8 +52,8 @@ int main() {
 
     
 
-    if(temPageFault(memVirtual, memPrincipal)) printf("PAGE FAULT: Sim");
-    else printf("Page Fault: Não");
+    if(temPageFault(memVirtual, memPrincipal)) printf("\nPAGE FAULT: Sim");
+    else printf("\nPage Fault: Não");
 
 
     return 0;
