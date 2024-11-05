@@ -17,7 +17,17 @@ int main(int argc, char *argv[]) {
         printf("\nArquivos abertos com sucesso.");
     }
 
-    
+    char *linha;
+    linha = (char*) calloc(TAM_VET, sizeof(char));
+
+
+    int tamanhoMemoriaReal;
+
+    fgets(linha, 3, params);
+
+    tamanhoMemoriaReal = atoi(linha[posicaoPontoVirgula(linha) + 1]);
+
+    printf("%d", tamanhoMemoriaReal);
 
     return 0;
 }
