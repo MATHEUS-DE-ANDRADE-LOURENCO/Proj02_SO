@@ -6,7 +6,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-
+int posicaoPontoVirgula(char *string);
 
 
 
