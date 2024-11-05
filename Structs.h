@@ -1,8 +1,8 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-#define TAM_VET 5
-#define PAGS_PROC 3
+# define TAM_VET 100
+
 #include <stdbool.h>
 
 typedef struct {
@@ -15,7 +15,7 @@ typedef struct {
 typedef struct {
     int pid;
     int tabelaPaginas[TAM_VET];
-    Pagina paginas[PAGS_PROC];
+    Pagina paginas[TAM_VET];
 } Processo;
 
 typedef struct {
