@@ -1,56 +1,33 @@
 #include "funcoes.h"
 
-int main(int argc, char *argv[]) {  // Corrigido aqui
-
+int main(int argc, char *argv[]) {
+    // Variáveis de configuração do sistema
     int tamanhoMemoriaReal, tamanhoMemoriaVirtual, processos, tamanhoPaginasProcesso, paginaInicialReal, paginaInicialVirtual;
     int execucao[TAM_VET];
-    // ============================================== LER OS ARQUIVOS E PREPARAR AS VARIÁVEIS ==============================================
 
-    // Abrir arquivos
-    FILE *params = fopen(argv[1], "r");
-    FILE *exec = fopen(argv[2], "r");  // Aqui, talvez você queria abrir o segundo arquivo
-
-    if(params == NULL || exec == NULL) {
-        printf("\nErro na abertura dos arquivos.");
-        return 1; // Usar 1 para indicar erro
+    // Inicialização do sistema com dados do arquivo params.csv
+    if (!inicializarSistema(&tamanhoMemoriaReal, &tamanhoMemoriaVirtual, &processos, &tamanhoPaginasProcesso, 
+                            &paginaInicialReal, &paginaInicialVirtual, "params.csv")) {
+        printf("Erro ao ler o arquivo de parâmetros.\n");
+        return 1;
     }
 
-    char *linha;
-    linha = (char*) calloc(TAM_VET, sizeof(char));
-
-    // Leitura dos dados do arquivo params
-    fgets(linha, TAM_VET, params);
-    tamanhoMemoriaReal = linha[posicaoPontoVirgula(linha) + 1] - '0'; 
-
-    fgets(linha, TAM_VET, params);
-    tamanhoMemoriaVirtual= linha[posicaoPontoVirgula(linha) + 1] - '0'; 
-
-    fgets(linha, TAM_VET, params);
-    processos = linha[posicaoPontoVirgula(linha) + 1] - '0'; 
-
-    fgets(linha, TAM_VET, params);
-    tamanhoPaginasProcesso = linha[posicaoPontoVirgula(linha) + 1] - '0'; 
-
-    fgets(linha, TAM_VET, params);
-    paginaInicialReal = linha[posicaoPontoVirgula(linha) + 1] - '0'; 
-
-    fgets(linha, TAM_VET, params);
-    paginaInicialVirtual= linha[posicaoPontoVirgula(linha) + 1] - '0'; 
-
-    printf("%d %d %d %d", tamanhoMemoriaReal, tamanhoMemoriaReal, processos, tamanhoPaginasProcesso);
-
-    for(int i = 0; fgets(linha, TAM_VET, exec) != NULL; i + 2) {
-        execucao[i] = linha[0] - '0';
-        execucao[i + 1] = linha[2] - '0';
-
-        printf("\n%d %d", execucao[i], execucao[i+1]); 
+    // Carrega a ordem de execução de execucao.csv no vetor execucao
+    if (!carregarOrdemExecucao(execucao, "execucao.csv")) {
+        printf("Erro ao ler o arquivo de execução.\n");
+        return 1;
     }
 
-    fclose(params);
-    fclose(exec);
-    free(linha);
-    
-     // ====================================================================================================================================
+    // Exibir os valores lidos para verificação
+    printf("Configurações do Sistema:\n");
+    printf("Memória Real: %d, Memória Virtual: %d\n", tamanhoMemoriaReal, tamanhoMemoriaVirtual);
+    printf("Processos: %d, Páginas por Processo: %d\n", processos, tamanhoPaginasProcesso);
+    printf("Página Inicial Real: %d, Página Inicial Virtual: %d\n", paginaInicialReal, paginaInicialVirtual);
+
+    printf("\nOrdem de Execução:\n");
+    for (int i = 0; execucao[i] != -1; i += 2) {
+        printf("Processo %d, Página %d\n", execucao[i], execucao[i + 1]);
+    }
 
     return 0;
 }
