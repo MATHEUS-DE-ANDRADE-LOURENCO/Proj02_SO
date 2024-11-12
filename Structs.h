@@ -1,16 +1,19 @@
+// Arquivo structs.h
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
-# define TAM_VET 100
+#define TAM_VET 100
 
 #include <stdbool.h>
 
 typedef struct {
-    int id;
-    int processo_id;
-    int frame_id;
-    char dados[TAM_VET];
+    int processoId;
+    int paginaVirtual;
+    int paginaReal;
+    int estaNaMemoria;  // 1 se estiver na memória real, 0 caso contrário
 } Pagina;
+
+extern Pagina tabelaDePaginas[TAM_VET];  // Declaração como externa para uso global
 
 typedef struct {
     int pid;
