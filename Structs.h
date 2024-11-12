@@ -13,11 +13,8 @@ typedef struct {
     int estaNaMemoria;  // 1 se estiver na memória real, 0 caso contrário
 } Pagina;
 
-extern Pagina tabelaDePaginas[TAM_VET];  // Declaração como externa para uso global
-
 typedef struct {
     int pid;
-    int tabelaPaginas[TAM_VET];
     Pagina paginas[TAM_VET];
 } Processo;
 

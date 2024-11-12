@@ -5,6 +5,7 @@
 #include "Structs.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int posicaoPontoVirgula(const char *linha);
 void inicializarTabelaDePaginas();
@@ -18,7 +19,11 @@ int inicializarSistema(int *tamanhoMemoriaReal, int *tamanhoMemoriaVirtual, int 
 int carregarOrdemExecucao(int execucao[TAM_VET], const char *arquivoExecucao);
 
 void lidarComFaltaDePaginaFIFO(int processoId, int paginaVirtual);
+
 int encontrarFrameLivre();
+
 void registrarLog(const char *mensagem, int processoId, int paginaVirtual, int paginaReal);
+
+bool jaEstaNaMemoriaVirtual(int pid, Processo memoriaVirtual[TAM_VET]);
 
 #endif

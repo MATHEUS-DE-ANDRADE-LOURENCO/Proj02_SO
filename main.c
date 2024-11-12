@@ -29,18 +29,11 @@ int main(int argc, char *argv[]) {
         printf("Processo %d, Página %d\n", execucao[i], execucao[i + 1]);
     }
 
-    for (int i = 0; execucao[i] != -1; i += 2) {
-        int processoId = execucao[i];
-        int paginaVirtual = execucao[i + 1];
-    
-        int enderecoFisico = gerenciarPagina(processoId, paginaVirtual);
-        if (enderecoFisico == -1) {
-            // Falta de página
-            lidarComFaltaDePaginaFIFO(processoId, paginaVirtual);
-        } else {
-            printf("Acesso à memória: Processo %d, Página Virtual %d, Frame %d\n", processoId, paginaVirtual, enderecoFisico);
-            registrarLog("Acesso à Memória", processoId, paginaVirtual, enderecoFisico);
-        }
+    // Inicializa a memória virtual
+    Processo memVirtual[TAM_VET];
+
+    for(int i = 0; i < TAM_VET; i++) {
+        memVirtual[i].pid = -1;
     }
 
     return 0;

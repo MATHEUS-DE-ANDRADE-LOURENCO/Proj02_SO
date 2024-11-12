@@ -155,3 +155,11 @@ void registrarLog(const char *mensagem, int processoId, int paginaVirtual, int p
     }
 }
 
+
+bool jaEstaNaMemoriaVirtual(int pid, Processo memoriaVirtual[TAM_VET]) {
+    for(int i = 0; i < TAM_VET; i = i + 2) {
+        if(memoriaVirtual[i].pid == pid) return true;
+    }
+
+    return false;
+}
