@@ -17,4 +17,8 @@ int inicializarSistema(int *tamanhoMemoriaReal, int *tamanhoMemoriaVirtual, int 
 
 int carregarOrdemExecucao(int execucao[TAM_VET], const char *arquivoExecucao);
 
+void lidarComFaltaDePaginaFIFO(int processoId, int paginaVirtual);
+int encontrarFrameLivre();
+void registrarLog(const char *mensagem, int processoId, int paginaVirtual, int paginaReal);
+
 #endif
