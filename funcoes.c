@@ -163,3 +163,23 @@ bool jaEstaNaMemoriaVirtual(int pid, Processo memoriaVirtual[TAM_VET]) {
 
     return false;
 }
+
+void imprimeMemoriaVirtual(Processo memoriaVirtual[TAM_VET], int tamanhoPaginasProcesso, int qtdProcessos) {
+    printf("\n--------------- --------------- ---------------");
+    printf("\n|             |               |               |");
+    printf("\n--------------- --------------- ---------------");
+
+    for (int i = 0; i < qtdProcessos; i++) {
+        printf("\n--------------- --------------- ---------------");
+        printf("\n|");
+
+        // Imprime as páginas do processo atual
+        for (int j = 0; j < tamanhoPaginasProcesso; j++) {
+            printf(" P%d -%d- %d  |", 
+                   memoriaVirtual[i].pid, 
+                   memoriaVirtual[i].paginas[j].id, 
+                   memoriaVirtual[i].paginas[j].paginaVirtual);
+        }
+    }
+    printf("\n--------------- --------------- ---------------\n");
+}

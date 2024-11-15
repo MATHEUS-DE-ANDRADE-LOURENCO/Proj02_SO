@@ -7,6 +7,7 @@
 #include <stdbool.h>
 
 typedef struct {
+    int id;
     int processoId;
     int paginaVirtual;
     int paginaReal;
@@ -16,6 +17,7 @@ typedef struct {
 typedef struct {
     int pid;
     Pagina paginas[TAM_VET];
+    int enderecoVirtual;
 } Processo;
 
 typedef struct {
