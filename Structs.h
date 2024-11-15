@@ -25,7 +25,6 @@ typedef struct {
     bool ocupado;
     int processo_id;
     int pagina_id;
-    char dados[TAM_VET];
 } Frame;
 
 #endif

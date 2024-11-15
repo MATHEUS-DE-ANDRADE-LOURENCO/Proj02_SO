@@ -191,3 +191,15 @@ void imprimeMemoriaVirtual(Processo memoriaVirtual[TAM_VET], int tamanhoPaginasP
     }
     printf("\n--------------- --------------- ---------------\n");
 }
+
+void imprimeMemoriaReal(Frame memReal[TAM_VET], int tamanhoMemoriaReal) {
+    printf("\n--------");
+    for(int i = 0; i < tamanhoMemoriaReal; i++) {
+        if(memReal[i].pagina_id == -1 || memReal[i].id == -1) {
+            printf("\n| ---- |");
+        } else{
+            printf("| P%d-%d |", memReal[i].id, memReal[i].pagina_id);
+        }
+        printf("\n--------");
+    }
+}

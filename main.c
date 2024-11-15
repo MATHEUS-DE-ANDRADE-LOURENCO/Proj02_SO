@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
             // Alocando as páginas ao processo
             for(int j = 0; j < tamanhoPaginasProcesso; j++) {
                 Pagina pagAux;
-                pagAux.id = j + 1;
+                pagAux.id = j;
                 pagAux.paginaVirtual = endPagina;
                 pagAux.estaNaMemoria = 0;
                 pagAux.processoId = execucao[i];
@@ -73,6 +73,53 @@ int main(int argc, char *argv[]) {
 
     // Imprime a memória virtual
     imprimeMemoriaVirtual(memVirtual, tamanhoPaginasProcesso, posMemoriaVirtual);
+
+    // Inicializa a memória Física
+    Frame memReal[TAM_VET];
+
+    for(int i = 0; i < TAM_VET; i++) {
+        memReal[i].id = -1;
+        memReal[i].pagina_id = -1;
+        memReal[i].ocupado = 0;
+    }
+
+    printf("\nEstado da memória física: ");
+    imprimeMemoriaReal(memReal, tamanhoMemoriaReal);
+
+    //Percorrer todo o vetor de execução
+    // Percorrer todo o vetor de execução
+for (int i = 0; execucao[i] != -1; i += 2) {
+    int procAnalisado = execucao[i];
+    int pagAnalisada = execucao[i + 1];
+    int paginaEncontrada = 0;  // Flag para saber se a página foi encontrada
+    Pagina pagAtual;
+
+    // Procurar a página analisada na Memória Virtual
+    for (int j = 0; j < TAM_VET && memVirtual[j].pid != -1; j++) {
+        // Se encontrar o processo analisado, procurar a página analisada.
+        if (memVirtual[j].pid == procAnalisado) {
+            for (int k = 0; k < tamanhoPaginasProcesso; k++) {
+                // Verifica se a página atual é a página analisada
+                if (memVirtual[j].paginas[k].id == pagAnalisada) {
+                    pagAtual = memVirtual[j].paginas[k];
+                    paginaEncontrada = 1;
+                    break;  // Saímos do loop de páginas
+                }
+            }
+        }
+
+        // Se já encontramos a página, podemos sair do loop de processos
+        if (paginaEncontrada) {
+            break;
+        }
+    }
+
+    // Verificação se a página foi encontrada
+    if (!paginaEncontrada) {
+        printf("Página %d do Processo %d não encontrada na Memória Virtual\n", pagAnalisada, procAnalisado);
+    }
+}
+
 
     return 0;
 }

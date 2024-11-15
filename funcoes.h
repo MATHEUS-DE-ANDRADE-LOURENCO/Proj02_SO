@@ -30,4 +30,6 @@ bool pagEstaNoProc(int id, Processo p, int tamanhoPaginasProcesso);
 
 void imprimeMemoriaVirtual(Processo memoriaVirtual[TAM_VET], int tamanhoPaginasProcesso, int qtdProcessos);
 
+void imprimeMemoriaReal(Frame memReal[TAM_VET], int tamanhoMemoriaReal);
+
 #endif
