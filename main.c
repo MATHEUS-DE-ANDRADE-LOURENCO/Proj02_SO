@@ -5,6 +5,8 @@ int main(int argc, char *argv[]) {
     int tamanhoMemoriaReal, tamanhoMemoriaVirtual, processos, tamanhoPaginasProcesso, paginaInicialReal, paginaInicialVirtual;
     int execucao[TAM_VET];
 
+    for(int i = 0; i < TAM_VET; i++) execucao[i] = -1;
+
     // Inicialização do sistema com dados do arquivo params.csv
     if (!inicializarSistema(&tamanhoMemoriaReal, &tamanhoMemoriaVirtual, &processos, &tamanhoPaginasProcesso, 
                             &paginaInicialReal, &paginaInicialVirtual, "params.csv")) {
@@ -47,32 +49,19 @@ int main(int argc, char *argv[]) {
             procAux.pid = execucao[i];
             procAux.enderecoVirtual = paginaInicialVirtual;
 
-            // Inicializa o vetor de páginas do processo
-            int endPagina = procAux.enderecoVirtual;
             int posPagina = 0;
+            int endPagina = paginaInicialVirtual;
+            // Alocando as páginas ao processo
+            for(int j = 0; j < tamanhoPaginasProcesso; j++) {
+                Pagina pagAux;
+                pagAux.id = j + 1;
+                pagAux.paginaVirtual = endPagina;
+                pagAux.estaNaMemoria = 0;
+                pagAux.processoId = execucao[i];
 
-            // Percorre o vetor de execução para adicionar páginas ao processo
-            for (int j = i; j < TAM_VET && execucao[j] != -1; j += 2) {
-                // Verifica se a página pertence ao processo atual
-                if (execucao[j] == procAux.pid) {
-                    // Garante que não ultrapasse o limite do vetor de páginas
-                    if (posPagina >= tamanhoPaginasProcesso) {
-                        printf("Erro: Excedido o número máximo de páginas para o processo %d\n", procAux.pid);
-                        break;
-                    }
-
-                    Pagina pagAux;
-                    pagAux.id = execucao[j + 1];  // Acessa a página
-                    pagAux.processoId = procAux.pid;
-                    pagAux.paginaVirtual = endPagina;
-                    pagAux.estaNaMemoria = 0;
-
-                    // Adiciona a página ao vetor de páginas do processo
-                    procAux.paginas[posPagina] = pagAux;
-
-                    endPagina += 4; // Atualiza o endereço para a próxima página
-                    posPagina++;
-                }
+                procAux.paginas[posPagina] = pagAux;
+                posPagina++;
+                endPagina+=4;
             }
 
             // Armazena o processo na memória virtual

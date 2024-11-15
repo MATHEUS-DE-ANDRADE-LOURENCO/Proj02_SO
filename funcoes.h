@@ -26,6 +26,8 @@ void registrarLog(const char *mensagem, int processoId, int paginaVirtual, int p
 
 bool jaEstaNaMemoriaVirtual(int pid, Processo memoriaVirtual[TAM_VET]);
 
+bool pagEstaNoProc(int id, Processo p, int tamanhoPaginasProcesso);
+
 void imprimeMemoriaVirtual(Processo memoriaVirtual[TAM_VET], int tamanhoPaginasProcesso, int qtdProcessos);
 
 #endif
