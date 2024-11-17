@@ -23,7 +23,6 @@ typedef struct {
 typedef struct {
     int id;
     bool ocupado;
-    int processo_id;
     int pagina_id;
 } Frame;
 

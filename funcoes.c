@@ -198,8 +198,24 @@ void imprimeMemoriaReal(Frame memReal[TAM_VET], int tamanhoMemoriaReal) {
         if(memReal[i].pagina_id == -1 || memReal[i].id == -1) {
             printf("\n| ---- |");
         } else{
-            printf("| P%d-%d |", memReal[i].id, memReal[i].pagina_id);
+            printf("\n| P%d-%d |", memReal[i].id, memReal[i].pagina_id);
         }
         printf("\n--------");
     }
+}
+
+bool pageFault(Pagina pag, Frame memReal[TAM_VET], int tamanhoMemoriaReal) {
+    for(int i = 0; i < tamanhoMemoriaReal; i++) {
+        if(memReal[i].id == pag.processoId && memReal[i].pagina_id == pag.id) return false;
+    }
+
+    return true;
+}
+
+int buscaFrame(int id, int pagina_id, Frame memReal[TAM_VET], int tamanhoMemoriaReal) {
+    for(int i = 0; i < tamanhoMemoriaReal; i++) {
+        if(memReal[i].id == id && memReal[i].pagina_id == pagina_id) return i;
+    }
+
+    return -1;
 }

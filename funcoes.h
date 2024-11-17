@@ -32,4 +32,8 @@ void imprimeMemoriaVirtual(Processo memoriaVirtual[TAM_VET], int tamanhoPaginasP
 
 void imprimeMemoriaReal(Frame memReal[TAM_VET], int tamanhoMemoriaReal);
 
+bool pageFault(Pagina pag, Frame memReal[TAM_VET], int tamanhoMemoriaReal);
+
+int buscaFrame(int id, int pagina_id, Frame memReal[TAM_VET], int tamanhoMemoriaReal);
+
 #endif
