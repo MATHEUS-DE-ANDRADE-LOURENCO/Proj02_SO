@@ -1,0 +1,34 @@
+
+
+[PAGE FAULT] Página 0 do processo 1 não está na memória
+Carregando página 0 do processo 1 (endereço lógico 1000) no frame 0
+
+[PAGE FAULT] Página 0 do processo 2 não está na memória
+Carregando página 0 do processo 2 (endereço lógico 1012) no frame 1
+
+[PAGE FAULT] Página 0 do processo 3 não está na memória
+Carregando página 0 do processo 3 (endereço lógico 1024) no frame 2
+
+[PAGE FAULT] Página 0 do processo 4 não está na memória
+Carregando página 0 do processo 4 (endereço lógico 1036) no frame 3
+
+Página 0 do processo 3 está na memória física.
+Página 0 do processo 3 (endereço lógico 1024) no frame 2
+
+Página 0 do processo 4 está na memória física.
+Página 0 do processo 4 (endereço lógico 1036) no frame 3
+
+[PAGE FAULT] Página 1 do processo 4 não está na memória
+Substituindo página 1 do processo 4 (endereço lógico 1040) no frame 0
+
+[PAGE FAULT] Página 2 do processo 3 não está na memória
+Substituindo página 2 do processo 3 (endereço lógico 1032) no frame 1
+
+[PAGE FAULT] Página 2 do processo 2 não está na memória
+Substituindo página 2 do processo 2 (endereço lógico 1020) no frame 2
+
+[PAGE FAULT] Página 0 do processo 3 não está na memória
+Substituindo página 0 do processo 3 (endereço lógico 1024) no frame 3
+
+[PAGE FAULT] Página 0 do processo 0 não está na memória
+Substituindo página 0 do processo 0 (endereço lógico 1048) no frame 0

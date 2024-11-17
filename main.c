@@ -86,6 +86,9 @@ int main(int argc, char *argv[]) {
     printf("\nEstado da memória física: ");
     imprimeMemoriaReal(memReal, tamanhoMemoriaReal);
 
+    // Abre um arquivo para gerar os logs
+    FILE *log = fopen("log.txt", "w+");
+
     // Para cada elemento do vetor de execução
     int posMemReal = 0;
     for (int t = 0; execucao[t] != -1; t += 2) {
@@ -137,10 +140,13 @@ int main(int argc, char *argv[]) {
             if(pgFault) {
                 pagAtual.paginaReal = posMemReal % 4;
                 printf("\n[PAGE FAULT] Página %d do processo %d não está na memória", pagAtual.id, pagAtual.processoId);
+                fprintf(log, "\n\n[PAGE FAULT] Página %d do processo %d não está na memória", pagAtual.id, pagAtual.processoId);
                 if(memReal[posMemReal % 4].ocupado == 0) {
                     printf("\nCarregando página %d do processo %d (endereço lógico %d) no frame %d", pagAtual.id, pagAtual.processoId, pagAtual.paginaVirtual, pagAtual.paginaReal);
+                    fprintf(log, "\nCarregando página %d do processo %d (endereço lógico %d) no frame %d", pagAtual.id, pagAtual.processoId, pagAtual.paginaVirtual, pagAtual.paginaReal);
                 } else {
                     printf("\nSubstituindo página %d do processo %d (endereço lógico %d) no frame %d", pagAtual.id, pagAtual.processoId, pagAtual.paginaVirtual, pagAtual.paginaReal);
+                    fprintf(log, "\nSubstituindo página %d do processo %d (endereço lógico %d) no frame %d", pagAtual.id, pagAtual.processoId, pagAtual.paginaVirtual, pagAtual.paginaReal);
                 }
 
                 memReal[posMemReal%4] = ocupaMemoria;
@@ -151,8 +157,10 @@ int main(int argc, char *argv[]) {
 
 
             } else {
-                printf("\nPágina %d do processo %d está na memória física.", pagAtual.id, pagAtual.processoId);
+                printf("\n\nPágina %d do processo %d está na memória física.", pagAtual.id, pagAtual.processoId);
                 printf("\nPágina %d do processo %d (endereço lógico %d) no frame %d", pagAtual.id, pagAtual.processoId, pagAtual.paginaVirtual, buscaFrame(pagAtual.processoId, pagAtual.id, memReal, tamanhoMemoriaReal));
+                fprintf(log, "\n\nPágina %d do processo %d está na memória física.", pagAtual.id, pagAtual.processoId);
+                fprintf(log, "\nPágina %d do processo %d (endereço lógico %d) no frame %d", pagAtual.id, pagAtual.processoId, pagAtual.paginaVirtual, buscaFrame(pagAtual.processoId, pagAtual.id, memReal, tamanhoMemoriaReal));
 
                 printf("\nEstado da memória física: ");
                 imprimeMemoriaReal(memReal, tamanhoMemoriaReal);            
@@ -163,6 +171,7 @@ int main(int argc, char *argv[]) {
     }
 
     printf("\nTodos os processos foram concluídos! Finalizando programa...");
+    fclose(log);
 
 
     return 0;
