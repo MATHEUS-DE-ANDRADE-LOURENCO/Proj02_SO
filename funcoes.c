@@ -2,13 +2,6 @@
 #include "funcoes.h"
 #include <string.h>  // Para funções de string
 
-Pagina tabelaDePaginas[TAM_VET];
-
-// Variável para armazenar a fila FIFO de substituição
-int fifoQueue[TAM_VET];
-int fifoFront = 0;
-int fifoRear = -1;
-int totalFrames = 0;  // Total de frames ocupados
 
 int posicaoPontoVirgula(const char *linha) {
     char *pontoVirgula = strchr(linha, ';');
@@ -59,24 +52,6 @@ int inicializarSistema(int *tamanhoMemoriaReal, int *tamanhoMemoriaVirtual, int 
     return 1;
 }
 
-void inicializarTabelaDePaginas() {
-    for (int i = 0; i < TAM_VET; i++) {
-        tabelaDePaginas[i].processoId = -1;
-        tabelaDePaginas[i].paginaVirtual = -1;
-        tabelaDePaginas[i].paginaReal = -1;
-        tabelaDePaginas[i].estaNaMemoria = 0;
-    }
-}
-
-int gerenciarPagina(int processoId, int paginaVirtual) {
-    for (int i = 0; i < TAM_VET; i++) {
-        if (tabelaDePaginas[i].processoId == processoId && tabelaDePaginas[i].paginaVirtual == paginaVirtual) {
-            return tabelaDePaginas[i].estaNaMemoria ? tabelaDePaginas[i].paginaReal : -1;
-        }
-    }
-    return -1;
-}
-
 int carregarOrdemExecucao(int execucao[TAM_VET], const char *arquivoExecucao) {
     FILE *exec;
     char linha[TAM_VET];
@@ -95,64 +70,6 @@ int carregarOrdemExecucao(int execucao[TAM_VET], const char *arquivoExecucao) {
     execucao[i] = -1; // Marca o fim da lista de execuções
     fclose(exec);
     return 1;
-}
-
-// Função para adicionar uma página ao final da fila FIFO
-void adicionarFilaFIFO(int frameIndex) {
-    fifoRear = (fifoRear + 1) % TAM_VET;
-    fifoQueue[fifoRear] = frameIndex;
-}
-
-// Função para remover a página mais antiga da fila FIFO
-int removerFilaFIFO() {
-    int frameIndex = fifoQueue[fifoFront];
-    fifoFront = (fifoFront + 1) % TAM_VET;
-    return frameIndex;
-}
-
-
-int encontrarFrameLivre() {
-    for (int i = 0; i < TAM_VET; i++) {
-        if (tabelaDePaginas[i].estaNaMemoria == 0) {
-            return i;  // Retorna o índice do primeiro frame livre
-        }
-    }
-    return -1;  // Nenhum frame livre encontrado
-}
-
-void lidarComFaltaDePaginaFIFO(int processoId, int paginaVirtual) {
-    printf("Falta de Pagina\n");
-    sleep(1);  // Simula o tempo de acesso à memória secundária
-    
-    int frameIndex = encontrarFrameLivre();
-    
-    if (frameIndex == -1) {
-        // Memória cheia, então remover a página mais antiga (FIFO)
-        frameIndex = removerFilaFIFO();
-        registrarLog("Substituição de Página (FIFO)", tabelaDePaginas[frameIndex].processoId,
-                     tabelaDePaginas[frameIndex].paginaVirtual, frameIndex);
-        tabelaDePaginas[frameIndex].processoId = processoId;
-        tabelaDePaginas[frameIndex].paginaVirtual = paginaVirtual;
-    } else {
-        // Frame livre encontrado
-        tabelaDePaginas[frameIndex].processoId = processoId;
-        tabelaDePaginas[frameIndex].paginaVirtual = paginaVirtual;
-        adicionarFilaFIFO(frameIndex);
-    }
-    
-    tabelaDePaginas[frameIndex].estaNaMemoria = 1;
-    registrarLog("Página carregada", processoId, paginaVirtual, frameIndex);
-}
-
-
-void registrarLog(const char *mensagem, int processoId, int paginaVirtual, int paginaReal) {
-    FILE *log = fopen("log_execucao.txt", "a");
-    if (log != NULL) {
-        fprintf(log, "Processo %d, Página Virtual %d, Página Real %d: %s\n", processoId, paginaVirtual, paginaReal, mensagem);
-        fclose(log);
-    } else {
-        printf("Erro ao abrir o arquivo de log.\n");
-    }
 }
 
 
