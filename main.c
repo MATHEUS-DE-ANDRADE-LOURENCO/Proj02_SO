@@ -136,15 +136,15 @@ for (int t = 0; execucao[t] != -1; t += 2) {
         bool pgFault = pageFault(pagAtual, memReal, tamanhoMemoriaReal);
         
         if(pgFault) {
-            pagAtual.paginaReal = posMemReal % 4;
+            pagAtual.paginaReal = posMemReal % tamanhoMemoriaReal;
             printf("\n[PAGE FAULT] Página %d do processo %d não está na memória", pagAtual.id, pagAtual.processoId);
-            if(memReal[posMemReal % 4].ocupado == 0) {
+            if(memReal[posMemReal % tamanhoMemoriaReal].ocupado == 0) {
                 printf("\nCarregando página %d do processo %d (endereço lógico %d) no frame %d", pagAtual.id, pagAtual.processoId, pagAtual.paginaVirtual, pagAtual.paginaReal);
             } else {
                 printf("\nSubstituindo página %d do processo %d (endereço lógico %d) no frame %d", pagAtual.id, pagAtual.processoId, pagAtual.paginaVirtual, pagAtual.paginaReal);
             }
 
-            memReal[posMemReal%4] = ocupaMemoria;
+            memReal[posMemReal%tamanhoMemoriaReal] = ocupaMemoria;
             posMemReal++;
 
             printf("\nEstado da memória física: ");
