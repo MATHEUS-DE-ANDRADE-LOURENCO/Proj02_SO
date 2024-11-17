@@ -103,6 +103,7 @@ for (int t = 0; execucao[t] != -1; t += 2) {
         // Se encontrar o processo analisado, procurar a página analisada.
         if (memVirtual[j].pid == procAnalisado) {
             for (int k = 0; k < tamanhoPaginasProcesso; k++) {
+                sleep(1);    
                 // Verifica se a página atual é a página analisada
                 if (memVirtual[j].paginas[k].id == pagAnalisada) {
                     pagAtual = memVirtual[j].paginas[k];
